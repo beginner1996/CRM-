@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sm.cn.mapper.GoodsBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.sm.cn.entity.GoodsBrand" >
+    <id column="goods_brand_id" property="goodsBrandId" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
+    <result column="brand_url" property="brandUrl" jdbcType="VARCHAR" />
+    <result column="brand_desc" property="brandDesc" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goods_brand_id, brand_name, goods_type_id, brand_url, brand_desc, other
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sm.cn.entity.GoodsBrandExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods_brand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_brand
+    where goods_brand_id = #{goodsBrandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods_brand
+    where goods_brand_id = #{goodsBrandId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sm.cn.entity.GoodsBrandExample" >
+    delete from goods_brand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sm.cn.entity.GoodsBrand" >
+    insert into goods_brand (goods_brand_id, brand_name, goods_type_id, 
+      brand_url, brand_desc, other
+      )
+    values (#{goodsBrandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{goodsTypeId,jdbcType=INTEGER}, 
+      #{brandUrl,jdbcType=VARCHAR}, #{brandDesc,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sm.cn.entity.GoodsBrand" >
+    insert into goods_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsBrandId != null" >
+        goods_brand_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id,
+      </if>
+      <if test="brandUrl != null" >
+        brand_url,
+      </if>
+      <if test="brandDesc != null" >
+        brand_desc,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsBrandId != null" >
+        #{goodsBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        #{goodsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="brandUrl != null" >
+        #{brandUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="brandDesc != null" >
+        #{brandDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sm.cn.entity.GoodsBrandExample" resultType="java.lang.Integer" >
+    select count(*) from goods_brand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goods_brand
+    <set >
+      <if test="record.goodsBrandId != null" >
+        goods_brand_id = #{record.goodsBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandName != null" >
+        brand_name = #{record.brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsTypeId != null" >
+        goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandUrl != null" >
+        brand_url = #{record.brandUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandDesc != null" >
+        brand_desc = #{record.brandDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goods_brand
+    set goods_brand_id = #{record.goodsBrandId,jdbcType=INTEGER},
+      brand_name = #{record.brandName,jdbcType=VARCHAR},
+      goods_type_id = #{record.goodsTypeId,jdbcType=INTEGER},
+      brand_url = #{record.brandUrl,jdbcType=VARCHAR},
+      brand_desc = #{record.brandDesc,jdbcType=VARCHAR},
+      other = #{record.other,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sm.cn.entity.GoodsBrand" >
+    update goods_brand
+    <set >
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="brandUrl != null" >
+        brand_url = #{brandUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="brandDesc != null" >
+        brand_desc = #{brandDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_brand_id = #{goodsBrandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sm.cn.entity.GoodsBrand" >
+    update goods_brand
+    set brand_name = #{brandName,jdbcType=VARCHAR},
+      goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
+      brand_url = #{brandUrl,jdbcType=VARCHAR},
+      brand_desc = #{brandDesc,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR}
+    where goods_brand_id = #{goodsBrandId,jdbcType=INTEGER}
+  </update>
+</mapper>
