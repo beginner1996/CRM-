@@ -11,33 +11,40 @@
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
-    <!--添加SQLSessionFactory-->
-    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <!--分页插件的配置-->
-        <property name="plugins">
-            <array>
-                <bean class="com.github.pagehelper.PageInterceptor">
-                    <property name="properties">
-                        <!-- config params as the following -->
-                        <value>
-                            param1=value1
-                        </value>
-                    </property>
-                </bean>
-            </array>
-        </property>
+    <!--&lt;!&ndash;添加SQLSessionFactory&ndash;&gt;-->
+    <!--<bean class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--&lt;!&ndash;分页插件的配置&ndash;&gt;-->
+        <!--<property name="plugins">-->
+            <!--<array>-->
+                <!--<bean class="com.github.pagehelper.PageInterceptor">-->
+                    <!--<property name="properties">-->
+                        <!--&lt;!&ndash; config params as the following &ndash;&gt;-->
+                        <!--<value>-->
+                            <!--param1=value1-->
+                        <!--</value>-->
+                    <!--</property>-->
+                <!--</bean>-->
+            <!--</array>-->
+        <!--</property>-->
 
-        <!--配置log4j-->
-        <property name="configuration">
-            <bean class="org.apache.ibatis.session.Configuration">
-                <!--日志-->
-                <property name="logImpl" value="org.apache.ibatis.logging.log4j.Log4jImpl"/>
-                <!--开启驼峰命名-->
-                <property name="mapUnderscoreToCamelCase" value="true"/>
-            </bean>
-        </property>
+        <!--&lt;!&ndash;配置log4j&ndash;&gt;-->
+        <!--<property name="configuration">-->
+            <!--<bean class="org.apache.ibatis.session.Configuration">-->
+                <!--&lt;!&ndash;日志&ndash;&gt;-->
+                <!--<property name="logImpl" value="org.apache.ibatis.logging.log4j.Log4jImpl"/>-->
+                <!--&lt;!&ndash;开启驼峰命名&ndash;&gt;-->
+                <!--<property name="mapUnderscoreToCamelCase" value="true"/>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
+
+
     <!--添加包扫描-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.sm.cn.mapper"/>
