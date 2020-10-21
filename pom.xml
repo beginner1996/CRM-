@@ -15,6 +15,7 @@
         <module>crm-mapper</module>
         <module>crm-web</module>
         <module>crm-common</module>
+        <module>common-cors</module>
     </modules>
 
 
